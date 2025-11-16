@@ -53,6 +53,59 @@
     text-overflow: ellipsis;
 }
 
+
+/* Fix dropdown clipping if not already fixed */
+.navbar-collapse {
+    overflow: visible !important;
+}
+
+
+/* Force Bootstrap dropdown to show even with Monster theme overrides */
+.dropdown-menu {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease-in-out;
+    z-index: 99999 !important;
+}
+
+.dropdown-menu.show {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Fix Monster Admin cutting off dropdowns */
+.topbar .navbar-collapse {
+    overflow: visible !important;
+}
+
+.navbar-collapse {
+    overflow: visible !important;
+}
+.dropdown-menu {
+    z-index: 99999 !important;
+}
+
+/* Fixed Navbar Profile Pic */
+.navbar .dropdown-toggle img.profile-pic {
+    width: 48px !important;        /* fixed width */
+    height: 48px !important;       /* fixed height */
+    border-radius: 50% !important;/* perfect circle */
+    object-fit: cover !important;  /* fill circle, crop excess */
+    flex-shrink: 0 !important;     /* don't let flex resize */
+    display: block !important;     /* avoid flex distortion */
+    max-width: none !important;    /* override Bootstrap */
+    max-height: none !important;   /* override Bootstrap */
+}
+
+.navbar .dropdown-toggle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px;
+    min-height: 60px;  /* match image height */
+}
+
 </style>
 </head>
 
@@ -129,18 +182,52 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="./assets/images/users/1.jpg" alt="user" class="profile-pic me-2">Markarn Doe
+                    
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center"
+                           href="#"
+                           id="navbarDropdown"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                    
+                          <img src="./assets/images/profile_photos/profile_1.jpg"
+                               alt="user"
+                               class="profile-pic me-2"
+                               
+                               />
+                    
+                          <span>Bwalya Chanda</span>
+                        </a>
+                    
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    
+                          <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                              <i class="fa fa-user me-3"></i> Profile
                             </a>
-                            <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
-                        </li>
+                          </li>
+                    
+                          <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                              <i class="fa fa-cog me-3"></i> Settings
+                            </a>
+                          </li>
+                    
+                          <li><hr class="dropdown-divider"></li>
+                    
+                          <li>
+                            <a class="dropdown-item d-flex align-items-center text-danger" href="#">
+                              <i class="fas fa-sign-out-alt me-3"></i> Logout
+                            </a>
+                          </li>
+                    
+                        </ul>
+                      </li>
                     </ul>
+                    
+                        
                 </div>
             </nav>
         </header>
@@ -418,6 +505,36 @@
     <script src="js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="js/custom.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const dropdowns = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+    
+        dropdowns.forEach((dropdownToggleEl) => {
+          dropdownToggleEl.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+    
+            let menu = this.nextElementSibling;
+    
+            // close all open dropdowns
+            document.querySelectorAll(".dropdown-menu.show").forEach((openMenu) => {
+              if (openMenu !== menu) openMenu.classList.remove("show");
+            });
+    
+            // toggle current dropdown
+            menu.classList.toggle("show");
+          });
+        });
+    
+        // close dropdown when clicking outside
+        document.addEventListener("click", function () {
+          document.querySelectorAll(".dropdown-menu.show").forEach((openMenu) => {
+            openMenu.classList.remove("show");
+          });
+        });
+      });
+    </script>
+    
 </body>
 
 </html>

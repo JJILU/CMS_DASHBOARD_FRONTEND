@@ -25,6 +25,90 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<style>
+    /* Make all cards equal height */
+  .card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  /* Make the image fixed height and crop excess */
+  .card-img-top {
+      height: 180px;
+      width: 100%;
+      object-fit: cover;
+  }
+  
+  /* Prevent overflow in the card-body */
+  .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  /* Ellipsis for overflow text */
+  .card-body h3,
+  .card-body ul li {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  
+  
+  /* Fix dropdown clipping if not already fixed */
+  .navbar-collapse {
+      overflow: visible !important;
+  }
+  
+  
+  /* Force Bootstrap dropdown to show even with Monster theme overrides */
+  .dropdown-menu {
+      display: none !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.2s ease-in-out;
+      z-index: 99999 !important;
+  }
+  
+  .dropdown-menu.show {
+      display: block !important;
+      opacity: 1;
+      visibility: visible;
+  }
+  
+  /* Fix Monster Admin cutting off dropdowns */
+  .topbar .navbar-collapse {
+      overflow: visible !important;
+  }
+  
+  .navbar-collapse {
+      overflow: visible !important;
+  }
+  .dropdown-menu {
+      z-index: 99999 !important;
+  }
+  
+  /* Fixed Navbar Profile Pic */
+  .navbar .dropdown-toggle img.profile-pic {
+      width: 48px !important;        /* fixed width */
+      height: 48px !important;       /* fixed height */
+      border-radius: 50% !important;/* perfect circle */
+      object-fit: cover !important;  /* fill circle, crop excess */
+      flex-shrink: 0 !important;     /* don't let flex resize */
+      display: block !important;     /* avoid flex distortion */
+      max-width: none !important;    /* override Bootstrap */
+      max-height: none !important;   /* override Bootstrap */
+  }
+  
+  .navbar .dropdown-toggle {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px;
+      min-height: 60px;  /* match image height */
+  }
+  
+  </style>
 </head>
 
 <body>
@@ -100,18 +184,50 @@
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
-                    <ul class="navbar-nav">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="./assets/images/users/1.jpg" alt="user" class="profile-pic me-2">Markarn Doe
-                            </a>
-                            <ul class="dropdown-menu show" aria-labelledby="navbarDropdown"></ul>
+                          <a class="nav-link dropdown-toggle d-flex align-items-center"
+                             href="#"
+                             id="navbarDropdown"
+                             role="button"
+                             data-bs-toggle="dropdown"
+                             aria-expanded="false">
+                      
+                            <img src="./assets/images/profile_photos/profile_2.jpg"
+                                 alt="user"
+                                 class="profile-pic me-2"
+                                 
+                                 />
+                      
+                            <span>Bwalya Chanda</span>
+                          </a>
+                      
+                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                      
+                            <li>
+                              <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fa fa-user me-3"></i> Profile
+                              </a>
+                            </li>
+                      
+                            <li>
+                              <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="fa fa-cog me-3"></i> Settings
+                              </a>
+                            </li>
+                      
+                            <li><hr class="dropdown-divider"></li>
+                      
+                            <li>
+                              <a class="dropdown-item d-flex align-items-center text-danger" href="#">
+                                <i class="fas fa-sign-out-alt me-3"></i> Logout
+                              </a>
+                            </li>
+                      
+                          </ul>
                         </li>
-                    </ul>
+                      </ul>
+                      
                 </div>
             </nav>
         </header>
